@@ -1,11 +1,10 @@
-resource "newrelic_one_dashboard" "exampledash" {
-  name        = "New Relic Terraform Example"
+resource "newrelic_one_dashboard" "dashboard" {
+  for_each    = var.condition
+  name        = "New Relic Terraform 1"
   permissions = "public_read_only"
-  for_each = var.condition
 
   page {
-    name = "New Relic Terraform Example"
-   
+    name = "New Relic Terraform-1"
 
     widget_billboard {
       title  = each.value.title1
@@ -28,11 +27,24 @@ resource "newrelic_one_dashboard" "exampledash" {
 
       nrql_query {
         account_id = 4003058
-        query      = each.value.title2
+        query      = each.value.query2
       }
 
       # Must be another dashboard GUID
       linked_entity_guids = ["abc123"]
+    }
+
+    widget_bar {
+      title  = each.value.title3
+      row    = 4
+      column = 1
+      width  = 6
+      height = 3
+
+      nrql_query {
+        account_id = 4003058
+        query      = each.value.query3
+      }
     }
   }
 }
