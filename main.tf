@@ -1,6 +1,6 @@
 resource "newrelic_one_dashboard" "dashboard" {
   for_each    = var.condition
-  name        = "New Relic Terraform 1"
+  name        = "New Relic Terraform-1"
   permissions = "public_read_only"
 
   page {
@@ -26,12 +26,10 @@ resource "newrelic_one_dashboard" "dashboard" {
       height = 3
 
       nrql_query {
-        account_id = 4003058
+        # account_id = 4003058
         query      = each.value.query2
       }
 
-      # Must be another dashboard GUID
-      linked_entity_guids = ["abc123"]
     }
 
     widget_bar {
@@ -42,7 +40,7 @@ resource "newrelic_one_dashboard" "dashboard" {
       height = 3
 
       nrql_query {
-        account_id = 4003058
+        # account_id = 4003058
         query      = each.value.query3
       }
     }
